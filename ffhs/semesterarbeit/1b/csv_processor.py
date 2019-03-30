@@ -1,6 +1,6 @@
 import csv
 
-with open('ElektrischeEnergieEinfuhrAusfuhr.csv',
+with open('ElektrischeEnergieEinfuhrAusfuhr.csv', # try with resources (closes object)
           encoding='utf-8', errors='strict',  # insist on correct encoding
           newline=None) as csvfile:
     filereader = csv.reader(csvfile, delimiter=',', quotechar='|')
