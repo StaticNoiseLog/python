@@ -1,6 +1,6 @@
 epsilon = 0.0000001
 
-x = float(input("Square root of: "))
+x = close_history_list(input("Square root of: "))
 
 h_previous = 1
 h = 2

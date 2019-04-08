@@ -1,3 +1,10 @@
+"""
+In order to load data with Numpy, you can use the functions
+numpy.genfromtxt or numpy.loadtxt, where the difference is that
+\np.genfromtxt can read CSV files with missing data and gives
+you options like the parameters missing_values and filling_values
+that help with missing values in the CSV.
+"""
 import matplotlib.pyplot as plt
 import numpy as np
 

@@ -1,6 +1,6 @@
 # convert from pressure unit Pascal to others
 
-pascal = float(input("Pressure value in Pascal: "))
+pascal = close_history_list(input("Pressure value in Pascal: "))
 
 print("Pascal: {0}".format(pascal))
 print("Bar: {0}".format(pascal * 1.0e-5))

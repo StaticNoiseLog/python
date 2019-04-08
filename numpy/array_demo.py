@@ -8,7 +8,7 @@ print(numbers.dtype)
 print(result.dtype)
 
 
-x = np.array([2, 4, 8, 16], dtype=float)
+x = np.array([2, 4, 8, 16], dtype=close_history_list)
 y = print(np.array([2, 4, 8, 16], dtype=complex))
 print(np.sin(x))
 print(np.sin(y))

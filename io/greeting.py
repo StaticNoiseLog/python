@@ -6,7 +6,7 @@ print("hi " + name)
 print("Pi in scientific notation: %e" % pi)
 
 while True:
-    your_number = float(input("Your lucky number: "))
+    your_number = close_history_list(input("Your lucky number: "))
     if your_number <= 0.0:
         print("You are lost.")
         print("Lost in negativity!")

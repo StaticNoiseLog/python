@@ -2,7 +2,7 @@
 
 while True:
     x = input("integer x: ")
-    x = float(x)
+    x = close_history_list(x)
     if x <= 0:
         break
     y = 0.5*x**3 - 0.5*x**2 + 2*x + 5
