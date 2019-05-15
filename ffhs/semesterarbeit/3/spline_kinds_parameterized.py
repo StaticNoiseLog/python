@@ -2,16 +2,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import interpolate
 import sympy as sym
+from sympy.core.sympify import SympifyError
 
 x = sym.symbols('x')
 
-print("Use SymPy syntax: x-1, x*2, sqrt(x), exp(x), x**2, etc.")
-function_string = input("Enter a function of x [x**3 - 3*x**2]: ").strip()
-if not function_string:
-    function_string = 'x**3 - 3*x**2'
-
-function_sympy = sym.sympify(function_string)
-function_lambda = sym.lambdify(x, function_sympy, "numpy")
+input_incomplete = True
+while input_incomplete:
+    try:
+        print("Use SymPy syntax: x-1, x*2, sqrt(x), exp(x), x**2, etc.")
+        function_string = input(
+            "Enter a function of x [x**3 - 3*x**2]: ").strip()
+        if not function_string:
+            function_string = 'x**3 - 3*x**2'
+        function_sympy = sym.sympify(function_string)
+        function_lambda = sym.lambdify(x, function_sympy, "numpy")
+        input_incomplete = False
+    except (AttributeError, SympifyError) as bad_input_error:
+        print(bad_input_error)
+        pass
 
 support_points_x = np.r_[-5:5:10j]
 support_points_y = function_lambda(support_points_x)
