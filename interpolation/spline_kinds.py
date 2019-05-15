@@ -2,16 +2,18 @@ import numpy as np
 from scipy import interpolate
 import matplotlib.pyplot as plt
 
-x_axis = np.r_[0:10:11j]
-y = np.sin(x_axis)
+support_points_x  = np.r_[0:10:11j]
+support_points_y = np.sin(support_points_x )
+plt.scatter(support_points_x, support_points_y, c="k", label="support points")
 
-xnew = np.r_[0:10:100j]
+x = np.r_[0:10:100j]
 
-plt.plot(x_axis, y, linewidth=1.0)
+plt.plot(support_points_x , support_points_y, linewidth=1.0)
 
 for kind in ['nearest', 'zero', 'slinear', 'linear', 'quadratic', 'cubic']:
-    f = interpolate.interp1d(x_axis, y, kind=kind)
-    ynew = f(xnew)
-    plt.plot(xnew, ynew, label=kind)
+    f = interpolate.interp1d(support_points_x , support_points_y, kind=kind)
+    ynew = f(x)
+    plt.plot(x, ynew, label=kind)
 
+plt.legend()
 plt.show()
