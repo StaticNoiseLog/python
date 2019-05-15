@@ -6,7 +6,7 @@ import sympy as sym
 x = sym.symbols('x')
 
 print("Use SymPy syntax: x-1, x*2, sqrt(x), exp(x), x**2, etc.")
-function_string = input("Function of x [x**3 - 3*x**2]: ").strip()
+function_string = input("Enter a function of x [x**3 - 3*x**2]: ").strip()
 if not function_string:
     function_string = 'x**3 - 3*x**2'
 

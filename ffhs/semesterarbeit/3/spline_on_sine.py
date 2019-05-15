@@ -2,35 +2,23 @@ import matplotlib.pyplot as plt
 import numpy as npy
 from scipy.interpolate import interp1d
 
-t = npy.linspace(0.0, 2*npy.pi, 100)
-support_points = npy.linspace(0.0, 2*npy.pi, 8)
+x = npy.linspace(0.0, 2*npy.pi, 100)
 
-sin_t = npy.sin(t)
+# original function
+plt.plot(x, npy.sin(x), linewidth=1.0, label="sin(x)")
 
-print("support_points: ", support_points)
+# 8 support points from 0 to 2*Pi
+support_points_x = npy.linspace(0.0, 2*npy.pi, 8)
+support_points_y = npy.sin(support_points_x)
+plt.scatter(support_points_x, support_points_y, c="k")
 
-support_points_t = npy.sin(support_points)
+interpolation_linear = interp1d(support_points_x, support_points_y)
+interpolation_cubic = interp1d(
+    support_points_x, support_points_y, kind='cubic')
+plt.plot(x, interpolation_linear(x), '--', label="linear interpolation")
+plt.plot(x, interpolation_cubic(x), '-', label="cubic interpolation")
 
-plt.plot(t, sin_t, linewidth=1.0)
-
-plt.scatter(support_points, support_points_t, c="k")
-
-xnew = npy.linspace(0.0, 2*npy.pi, 100)
-
-f = interp1d(support_points, support_points_t)
-f2 = interp1d(support_points, support_points_t, kind='cubic')
-
-print("f2: ", f2)
-print("type(f2): ", type(f2))
-
-#plt.plot(support_points, support_points_t, 'o', xnew, f2(xnew), '-')
-plt.plot(support_points, support_points_t, 'o', t, f(t), '-', t, f2(t), '--')
-
-
-# plt.plot(t, sin_t, linewidth=2)
-# plt.plot(t, cos_t, "r", linewidth=2)
-plt.xlabel('time in seconds')
-plt.ylabel('y(t)')
-plt.title('sine replicated with splines')
+plt.title('sine approximated with linear and cubic splines')
 plt.grid(True)
+plt.legend()
 plt.show()
