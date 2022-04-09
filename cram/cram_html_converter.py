@@ -5,7 +5,7 @@ import re
 import urllib.request
 import urllib.parse
 from bs4 import BeautifulSoup
-from cram_utils import convert_filename_to_url
+from cram_utils import *
 
 # navigate to CSV file with dialog unless it is Mac OS
 if platform.system() != 'Darwin':
@@ -44,17 +44,23 @@ content = re.sub('<td class="audio">(.*?|\n)*?<\/td>', '', content)
 soup = BeautifulSoup(content, "html.parser")
 images = soup.find_all('img')
 for img in images:
-    img['width'] = "100%"
+    img['width'] = "auto"
     img['height'] = "auto"
     img['src'] = img['src'].replace('_m', '_b')  # _b is higher resolution
     img_subdirectory_and_filename = img['src'].rsplit('/', 1)
     img_subdirectory = urllib.parse.unquote(img_subdirectory_and_filename[0])
     img_filename = img_subdirectory_and_filename[1]
-    img_url = convert_filename_to_url(img_filename)
     img_full_filename = output_directory + '/' + \
         img_subdirectory + '/' + img_filename
-    print('Downloading ', img_url, ' to ', img_full_filename)
-    urllib.request.urlretrieve(img_url, img_full_filename)
+    try:
+        img_url = convert_filename_to_url_flex(img_filename, 'https://images.cram.com/images/upload-flashcard')
+        print('Downloading ', img_url, ' to ', img_full_filename)
+        urllib.request.urlretrieve(img_url, img_full_filename)
+    except (urllib.error.HTTPError) as http_error:
+        print(http_error)
+        img_url = convert_filename_to_url_flex(img_filename, 'https://dp11i9uvzjqmt.cloudfront.net/2/images/upload-flashcards')
+        print('Downloading ', img_url, ' to ', img_full_filename)
+        urllib.request.urlretrieve(img_url, img_full_filename)
 
 content = str(soup)  # from HTML back to string
 
